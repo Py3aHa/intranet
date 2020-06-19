@@ -1,0 +1,110 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/main.html">
+
+<head>
+    <meta charset="utf-8">
+    <meta th:name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Пользователи</title>
+
+    <link th:href="@{'vendor/datatables/dataTables.bootstrap4.min.css'}" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script th:src="@{'/js/html5shiv.js'}"></script>
+    <script th:src="@{'/js/respond.min.js'}"></script>
+    <![endif]-->
+</head>
+<body id="page-top">
+    <div layout:fragment="content" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+
+        <div style="padding-left: 4rem; padding-top: 2rem; padding-bottom: 2rem;">
+            <a class="btn btn-info btn-sm ml-1" th:href="@{'/admin/addNewUser'}"><span><i class="fas fa-plus"></i>  Add new user</span></a>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12" style="padding-left: 2rem;">
+                <h1 class="page-header">Пользователи</h1>
+            </div>
+        </div>
+
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary" style="font-size: 12px;">Users</h6>
+                </div>
+                <div class="card-body">
+                    <nav class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>E-mail</th>
+                                    <th>First name last name</th>
+                                    <th>Role</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>E-mail</th>
+                                    <th>First name last name</th>
+                                    <th>Role</th>
+                                    <th>Details</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr th:each = "usr : ${users}">
+                                    <td th:text = "${usr.id}"></td>
+                                    <td th:text = "${usr.email}"></td>
+                                    <td th:text = "${usr.firstName + ' ' +usr.lastName}"></td>
+                                    <td th:text = "${usr.roles}"></td>
+                                    <td>
+                                        <a th:href = "@{'/admin/userdetails/'+${usr.id}}" class="btn btn-info btn-sm">Подробнее</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_paginate" aria-label="Page navigation example" id="dataTables_paginate">
+                            <ul class="pagination justify-content-end">
+                                <li><a class="btn btn-info btn-sm ml-1 page-link" th:href="@{'#'}"><span aria-hidden="true">&laquo;</span></a></li>
+                                <li th:each = "i : ${#numbers.sequence(1, tabSize)}" class="paginate_button page-item">
+                                    <a class="btn btn-info btn-sm ml-1 page-link" aria-controls="dataTable" th:text = "${i}" th:href = "@{'/admin/users/?page=' + ${i}}">
+                                    </a>
+                                <li>
+                                <li><a class="btn btn-info btn-sm ml-1 page-link" th:href="@{'#'}"><span aria-hidden="true">&raquo;</span></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{'vendor/jquery/jquery.min.js'}"></script>
+    <script th:src="@{'vendor/bootstrap/js/bootstrap.bundle.min.js'}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{'vendor/jquery-easing/jquery.easing.min.js'}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{'js/sb-admin-2.min.js'}"></script>
+
+    <!-- Page level plugins -->
+    <script th:src="@{'vendor/datatables/jquery.dataTables.min.js'}"></script>
+    <script th:src="@{'vendor/datatables/dataTables.bootstrap4.min.js'}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{'js/demo/datatables-demo.js'}"></script>
+</body>
+</html>

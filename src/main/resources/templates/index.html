@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="layout/main.html">
+
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+
+            </div>
+        </div>
+    </body>
+</html>
