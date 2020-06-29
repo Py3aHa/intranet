@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="~{layout/main.html}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.courses}"></title>
+    <style>
+        .linkMenu{
+            text-decoration: none;
+            color: cornflowerblue;
+        }
+        .linkMenu:hover{
+            text-decoration: underline;
+            color: royalblue;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="content" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+        <div class="row" style="margin-left: 4rem; margin-top: 2rem; margin-bottom: 2rem;">
+            <div>
+                <a class="btn btn-info btn-sm ml-1" th:href="@{'/admin/courses/addNewCourse'}"><span class="icon"><i class="fas fa-plus"> </i></span> <span th:text="#{ label.addNewCourse}"></span></a>
+            </div>
+            <div style="padding-left: 70%" class="form-group row">
+                <a class="linkMenu" th:href="@{'/'}"><span th:text="#{label.home}"></span><span> </span></a>
+                <span aria-hidden="true">&raquo;</span>
+                <p><span> </span><span th:text="#{label.courses}"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" style="padding-left: 2rem;">
+                <h1 class="page-header" th:text="#{label.courses}"></h1>
+            </div>
+        </div>
+
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary" style="font-size: 12px;" th:text="#{label.courses}"></h6>
+                </div>
+                <div class="card-body">
+                    <nav class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th th:text="#{label.title}"></th>
+                                <th th:text="#{label.edit}"></th>
+                                <th th:text="#{label.choose}"></th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th th:text="#{label.title}"></th>
+                                <th th:text="#{label.edit}"></th>
+                                <th th:text="#{label.choose}"></th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr th:each = "c : ${courses}">
+                                <td th:text = "${c.id}"></td>
+                                <td th:text = "${c.name}"></td>
+                                <td>
+                                    <a th:href = "@{'/admin/courses/courseDetails/'+${c.id}}" class="btn btn-info btn-sm" th:text="#{label.edit}"></a>
+                                </td>
+                                <td>
+                                    <a th:href = "@{'/admin/chapters/chapters/'+${c.id}}" class="btn btn-info btn-sm" th:text="#{label.choose}"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="dataTables_paginate" aria-label="Page navigation example" id="dataTables_paginate">
+                            <ul class="pagination justify-content-end">
+                                <li><a class="btn btn-info btn-sm ml-1 page-link" th:href="@{'#'}"><span aria-hidden="true">&laquo;</span></a></li>
+                                <li th:each = "i : ${#numbers.sequence(1, tabSize)}" class="paginate_button page-item">
+                                    <a class="btn btn-info btn-sm ml-1 page-link" aria-controls="dataTable" th:text = "${i}" th:href = "@{'/admin/courses/courses/?page=' + ${i}}">
+                                    </a>
+                                <li>
+                                <li><a class="btn btn-info btn-sm ml-1 page-link" th:href="@{'#'}"><span aria-hidden="true">&raquo;</span></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{'/vendor/jquery/jquery.min.js'}"></script>
+    <script th:src="@{'/vendor/bootstrap/js/bootstrap.bundle.min.js'}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{'/vendor/jquery-easing/jquery.easing.min.js'}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{'/js/sb-admin-2.min.js'}"></script>
+
+    <!-- Page level plugins -->
+    <script th:src="@{'/vendor/datatables/jquery.dataTables.min.js'}"></script>
+    <script th:src="@{'/vendor/datatables/dataTables.bootstrap4.min.js'}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{'/js/demo/datatables-demo.js'}"></script>
+</body>
+</html>
