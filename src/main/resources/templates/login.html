@@ -44,7 +44,7 @@
 								<div class="col-lg-6" style="margin-left:auto; margin-right:auto;">
 									<div class="p-5">
 										<div class="text-center">
-											<h1 class="h4 text-gray-900 mb-4">Вход</h1>
+											<h1 class="h4 text-gray-900 mb-4" th:text="#{label.login}"></h1>
 										</div>
 										<form th:action="@{'/login'}" method="post" class="user">
 											<div class="form-group">
@@ -56,17 +56,11 @@
 											<div class="form-group">
 												<div class="custom-control custom-checkbox small">
 													<input name="remember" type="checkbox" class="custom-control-input" id="customCheck">
-													<label class="custom-control-label" for="customCheck">Remember Me</label>
+													<label class="custom-control-label" for="customCheck" th:text="#{label.rememberMe}"></label>
 												</div>
 											</div>
-											<button th:href="@{'/'}" class="btn btn-primary btn-user btn-block">
-												Login
-											</button>
+											<button class="btn btn-primary btn-user btn-block" th:text="#{label.login2}"></button>
 										</form>
-										<hr>
-										<div class="text-center">
-											<a class="small" th:href="@{'forgot-password.html'}">Forgot Password?</a>
-										</div>
 									</div>
 								</div>
 							</div>

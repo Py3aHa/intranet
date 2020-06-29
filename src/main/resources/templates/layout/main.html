@@ -27,6 +27,23 @@
         <script th:src="@{'/js/html5shiv.js'}"></script>
         <script th:src="@{'/js/respond.min.js'}"></script>
         <![endif]-->
+
+        <style>
+            .language{
+                color: grey;
+            }
+            .language:hover{
+                color:dodgerblue;
+            }
+            .linkMenu{
+                text-decoration: none;
+                color: cornflowerblue;
+            }
+            .linkMenu:hover{
+                text-decoration: underline;
+                color: royalblue;
+            }
+        </style>
     </head>
     <body id="page-top">
 
@@ -41,7 +58,7 @@
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
-                    <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                    <div class="sidebar-brand-text mx-3">BITLAB</div>
                 </a>
 
                 <!-- Divider -->
@@ -51,7 +68,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{'/'}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
+                        <span th:text="#{label.home}"></span></a>
                 </li>
 
                 <!-- Divider -->
@@ -106,15 +123,15 @@
                 <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                         <i class="fas fa-fw fa-folder"></i>
-                        <span>Admin</span>
+                        <span th:text="#{label.admin}"></span>
                     </a>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <div class="collapse-divider"></div>
-                            <a class="collapse-item" th:href="@{'/admin/users'}">Users</a>
-                            <a class="collapse-item" th:href="@{'/admin/test'}">Courses</a>
-                            <a class="collapse-item" th:href="@{'/admin/groups'}">Groups</a>
-                            <a class="collapse-item" th:href="@{'/admin/schedule'}">Schedule</a>
+                            <a class="collapse-item" th:href="@{'/admin/users'}" th:text="#{label.users}"></a>
+                            <a class="collapse-item" th:href="@{'/admin/courses/courses'}" th:text="#{label.courses}"></a>
+                            <a class="collapse-item" th:href="@{'/admin/groups'}" th:text="#{label.groups}"></a>
+                            <a class="collapse-item" th:href="@{'/admin/schedule'}" th:text="#{label.schedule}"></a>
                         </div>
                     </div>
                 </li>
@@ -192,7 +209,22 @@
                                     </form>
                                 </div>
                             </li>
-
+                            <li>
+                                <div class="col-md-4" style="padding-top: 17%; font-size: small;">
+                                    <div class="header-right">
+                                        <ul class="list-unstyled list-inline">
+                                            <li class="dropdown dropdown-small">
+                                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle language" href="#"><span class="key" th:text="#{label.language}"></span><span class="value"> : English </span><b class="caret"></b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a th:href="@{'?lng=en'}" class="dropdown-item">English</a></li>
+                                                    <li><a th:href="@{'?lng=ru'}" class="dropdown-item">Русский</a></li>
+                                                    <li><a th:href="@{'?lng=kz'}" class="dropdown-item">Қазақ</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
                             <!-- Nav Item - Alerts -->
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -333,97 +365,7 @@
                     </nav>
                     <!-- End of Topbar -->
 
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid">
 
-                        <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                        </div>
-
-                        <!-- Content Row -->
-                        <div class="row">
-
-                            <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-success shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-info shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="progress progress-sm mr-2">
-                                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pending Requests Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                     <!-- /.container-fluid -->
                     <div layout:fragment="content">
                     </div>

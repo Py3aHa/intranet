@@ -2,72 +2,78 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorator="layout/main.html">
+      layout:decorator="~{layout/main.html}">
 <head>
     <meta charset="UTF-8">
-    <title>Add New User</title>
+    <title th:text="#{label.addNewUser}"></title>
 </head>
 <div layout:fragment="content" sec:authorize="hasAnyRole('ROLE_ADMIN')">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Add user</h1>
+
+    <div class="row" style="margin-left: 4rem; margin-top: 2rem; margin-bottom: 2rem;">
+        <div style="padding-left: 70%" class="form-group row">
+            <a class="linkMenu" th:href="@{'/'}"><span th:text="#{label.home}"></span><span> </span></a>
+            <span aria-hidden="true">&raquo;</span>
+            <a class="linkMenu" th:href="@{'/admin/users'}"><span th:text="#{label.users}"></span><span> </span></a>
+            <span aria-hidden="true">&raquo;</span>
+            <p><span> </span><span th:text="#{label.addUser}"></span></p>
         </div>
     </div>
-    <div class="panel panel-container">
+    <div class="panel panel-container" style="margin-left: 4rem; margin-top: 3rem;">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <form th:action = "@{'/admin/addUser'}" method="post" class="form">
                     <div class="form-group">
                         <label>
-                            Email:
+                            Email:<span style="color: red;">*</span>
                         </label>
                         <input type="email" class="form-control" name="email" placeholder="E-mail">
                     </div>
                     <div class="form-group">
-                        <label>
-                            Password:
-                        </label>
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <label th:text="#{label.password}"></label>
+                        <span>:</span>
+                        <span style="color: red;">*</span>
+                        <input type="password" class="form-control" name="password" th:placeholder="#{label.password}">
                     </div>
                     <div class="form-group">
-                        <label>
-                            Re-Password:
-                        </label>
-                        <input type="password" class="form-control" name="repass" placeholder="Re-Password">
+                        <label th:text="#{label.rePassword}"></label>
+                        <span>:</span>
+                        <span style="color: red;">*</span>
+                        <input type="password" class="form-control" name="repass" th:placeholder="#{label.rePassword}">
                     </div>
                     <div class="form-group">
-                        <label>
-                            Фамилия:
-                        </label>
-                        <input type="text" class="form-control" name="lastName" placeholder="Last name">
+                        <label th:text="#{label.lastName}"></label>
+                        <span>:</span>
+                        <span style="color: red;">*</span>
+                        <input type="text" class="form-control" name="lastName" th:placeholder="#{label.lastName}">
                     </div>
                     <div class="form-group">
-                        <label>
-                            Имя:
-                        </label>
-                        <input type="text" class="form-control" name="firstName" placeholder="First name">
+                        <label th:text="#{label.firstName}"></label>
+                        <span>:</span>
+                        <span style="color: red;">*</span>
+                        <input type="text" class="form-control" name="firstName" th:placeholder="#{label.firstName}">
                     </div>
                     <div class="col-auto my-1 form-group">
-                        <label class="mr-sm-2" for="inlineFormCheckbox">Role:</label>
+                        <label class="mr-sm-2" for="inlineFormCheckbox" th:text="#{label.role}"></label>
+                        <span>:</span>
+                        <span style="color: red;">*</span>
                         <div id="inlineFormCheckbox" class="row">
                             <div>
                                 <label for="studentCheck">
-                                    <input type="checkbox" th:name="student" th:value="3" id="studentCheck" checked>
-                                    Student
+                                    <input type="checkbox" th:name="student" th:value="3" id="studentCheck" checked > <span th:text="#{label.student}"></span>
+
                                 </label>
                                 <label for="teacherCheck">
-                                    <input type="checkbox" th:name="teacher" th:value="2" id="teacherCheck">
-                                    Teacher
+                                    <input type="checkbox" th:name="teacher" th:value="2" id="teacherCheck"> <span th:text="#{label.teacher}"></span>
+
                                 </label>
                                 <label for="adminCheck">
-                                    <input type="checkbox" th:name="admin" th:value="1" id="adminCheck">
-                                    Admin
+                                    <input type="checkbox" th:name="admin" th:value="1" id="adminCheck"> <span th:text="#{label.admin}"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary">Add</button>
+                        <button class="btn btn-info" th:text="#{label.add}"></button>
                     </div>
                 </form>
             </div>
